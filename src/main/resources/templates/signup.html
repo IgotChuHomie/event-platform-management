@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <title>Register | Event Platform</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
+    <!-- Favicon -->
+    <link th:href="@{/images/favicon.png}" rel="shortcut icon">
+
+    <!-- Essential stylesheets -->
+    <link th:href="@{/plugins/bootstrap/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/plugins/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background: #f8f9fa; /* Light gray background */
+        }
+
+        .register {
+            background: #ffffff; /* White background for signup section */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .register h3 {
+            color: #343a40; /* Darker gray text */
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .register .form-control {
+            border: 1px solid #ced4da; /* Light border for inputs */
+            border-radius: 5px;
+        }
+
+        .register .btn-primary {
+            background-color: #007bff; /* Bootstrap Primary */
+            border: none;
+            font-weight: 600;
+            padding: 0.8rem;
+            border-radius: 5px;
+        }
+
+        .register .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .register a {
+            font-size: 0.9rem;
+        }
+
+        .register a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<section class="register py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-8 align-item-center">
+                <div class="register p-4">
+                    <h3>Create Your Account</h3>
+                    <form th:action="@{/users/signup}" method="post">
+                        <fieldset class="p-4">
+                            <input class="form-control mb-3" type="text" th:field="*{user.name}" placeholder="Enter your name" required>
+                            <input class="form-control mb-3" type="email" th:field="*{user.email}" placeholder="Enter your email" required>
+                            <input class="form-control mb-3" type="password" th:field="*{user.password}" placeholder="Enter your password" required>
+                            <input class="form-control mb-3" type="password" placeholder="Confirm your password" required>
+                            <!-- Role Selection -->
+                            <label for="role" class="form-label">Select Role:</label>
+                            <select class="form-control mb-3" id="role" name="role" required>
+                                <option value="PARTICIPANT">Participant</option>
+                                <option value="ORGANIZER">Organizer</option>
+                            </select>
+
+                            <button type="submit" class="btn btn-primary w-100 mt-3">Register</button>
+                            <div class="text-center mt-4">
+                                <p>Already have an account? <a th:href="@{/users/login}" class="text-primary">Log in</a></p>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Essential Scripts -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template.html">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Participants for ' + ${event.title}">Event Participants</title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/plugins/bootstrap/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link th:href="@{/plugins/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            margin-top: 3rem;
+            background: linear-gradient(135deg, #ffffff, #f9f9f9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #343a40;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .participant-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            background: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .participant-table th {
+            background-color: #007bff;
+            color: #ffffff;
+            text-align: left;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .participant-table td {
+            padding: 1rem;
+            font-size: 1rem;
+            color: #333;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .participant-table tr:hover {
+            background-color: #f1f8ff;
+        }
+
+        .no-participants {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #6c757d;
+            margin-top: 2rem;
+        }
+
+        .btn-back {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            display: block;
+            width: fit-content;
+            margin: 2rem auto 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #0056b3;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .participant-table th, .participant-table td {
+                font-size: 0.9rem;
+                padding: 0.75rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .btn-back {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <h1 th:text="'Participants for ' + ${event.title}"></h1>
+
+        <!-- Participants Table -->
+        <table class="participant-table" th:if="${!#lists.isEmpty(participants)}">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="participant : ${participants}">
+                <td th:text="${participant.name}"></td>
+                <td th:text="${participant.email}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- No Participants Message -->
+        <p class="no-participants" th:if="${#lists.isEmpty(participants)}">No participants for this event.</p>
+
+        <!-- Back Button -->
+        <a th:href="@{/events/my-events}" class="btn-back">Back to My Events</a>
+    </div>
+</div>
+</body>
+</html>

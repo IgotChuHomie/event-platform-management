@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template.html">
+
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <title>Event List | Event Platform</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
+    <!-- Favicon -->
+    <link th:href="@{/images/favicon.png}" rel="shortcut icon">
+
+    <!-- Essential stylesheets -->
+    <link th:href="@{/plugins/bootstrap/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/plugins/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .post-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #007bff;
+            margin-bottom: 0.5rem;
+        }
+
+        .post-title:hover {
+            text-decoration: underline;
+        }
+
+        .card-meta {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .btn-outline-primary {
+            border-color: #007bff;
+            color: #007bff;
+            font-weight: 600;
+            border-radius: 30px;
+            padding: 0.5rem 1.5rem;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #28a745;
+        }
+
+        .capacity {
+            font-size: 0.9rem;
+            color: #343a40;
+        }
+
+        .text-muted {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container my-5">
+        <div class="row g-4">
+            <!-- Loop through events -->
+            <div class="col-md-6 col-lg-4" th:each="event : ${events}">
+                <div class="card h-100">
+                    <!-- Event image (placeholder or dynamic) -->
+                    <img th:src="@{/images/events.jpg}" alt="Event Image" class="card-img-top">
+
+                    <div class="card-body d-flex flex-column">
+                        <!-- Event Title -->
+                        <h3 class="post-title">
+                            <a th:href="@{/events/{id}(id=${event.id})}" th:text="${event.title}">Event Title</a>
+                        </h3>
+
+                        <!-- Event Meta -->
+                        <ul class="card-meta list-unstyled">
+                            <li>
+                                <i class="fa fa-calendar"></i>
+                                <span th:text="${#temporals.format(event.date, 'dd MMM yyyy')}">Event Date</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-map-marker"></i>
+                                <span th:text="${event.location}">Event Location</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-users"></i>
+                                <span class="capacity">Capacity: <span th:text="${event.capacity}">50</span></span>
+                            </li>
+                            <li>
+                                <i class="fa fa-dollar"></i>
+                                <span class="price">$<span th:text="${event.price}">10.00</span></span>
+                            </li>
+                        </ul>
+
+                        <!-- Event Description -->
+                        <p class="text-muted" th:text="${event.description}">Event Description</p>
+
+                        <!-- Get Ticket Button -->
+                        <a th:href="@{/events/events/{id}(id=${event.id})}" class="btn btn-outline-primary mt-auto">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Essential Scripts -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

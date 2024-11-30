@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template.html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${event.title}">Event Details</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .event-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-bottom: 5px solid #00274d;
+        }
+
+        .event-details {
+            padding: 30px;
+        }
+
+        .event-details h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00274d;
+            margin-bottom: 15px;
+        }
+
+        .event-details p {
+            margin: 5px 0;
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .event-details p span {
+            font-weight: bold;
+            color: #00274d;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff8000;
+            margin: 20px 0;
+        }
+
+        .buy-button {
+            display: block;
+            width: 100%;
+            background-color: #28a745;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .social-share {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .social-share h5 {
+            font-size: 1.2rem;
+            color: #00274d;
+            margin-bottom: 15px;
+        }
+
+        .social-share a {
+            margin: 0 10px;
+            font-size: 1.5rem;
+            color: #666;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-share a:hover {
+            color: #ff8000;
+            transform: scale(1.2);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" layout:fragment="content">
+        <!-- Event Image -->
+        <img th:src="@{/images/events.jpg}" alt="Event Image" class="event-image">
+
+        <!-- Event Details -->
+        <div class="event-details">
+            <h1 th:text="${event.title}">Event Title</h1>
+            <p><span>Location:</span> <span th:text="${event.location}">Event Location</span></p>
+            <p><span>Date:</span> <span th:text="${#temporals.format(event.date, 'EEEE, MMMM dd, yyyy')}">Event Date</span></p>
+            <p><span>Time:</span> <span th:text="${#temporals.format(event.date, 'hh:mm a')}">Event Time</span></p>
+            <p><span>Capacity:</span> <span th:text="${event.capacity}">Event Capacity</span></p>
+            <p><span>Description:</span> <span th:text="${event.description}">Event Description</span></p>
+            <p class="price"><span>Price:</span> <span th:text="${event.price}">Event Price</span> USD</p>
+            <a th:href="@{/buy-ticket/{id}(id=${event.id})}" class="buy-button">Buy Ticket</a>
+        </div>
+
+        <!-- Social Sharing -->
+        <div class="social-share">
+            <h5>Share this event:</h5>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

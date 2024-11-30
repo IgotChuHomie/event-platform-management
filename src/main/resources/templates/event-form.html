@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template.html">
+
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <title>Create Event | Event Platform</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
+    <!-- Favicon -->
+    <link th:href="@{/images/favicon.png}" rel="shortcut icon">
+
+    <!-- Essential stylesheets -->
+    <link th:href="@{/plugins/bootstrap/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/plugins/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background: #f8f9fa; /* Light gray background */
+        }
+
+        .event-form {
+            background: #ffffff; /* White background for the form section */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            padding: 2rem;
+        }
+
+        .event-form h3 {
+            color: #343a40; /* Darker gray text */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .event-form .form-control {
+            border: 1px solid #ced4da; /* Light border for inputs */
+            border-radius: 5px;
+        }
+
+        .event-form .btn-primary {
+            background-color: #007bff; /* Bootstrap Primary */
+            border: none;
+            font-weight: 600;
+            padding: 0.8rem;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .event-form .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .event-form label {
+            font-weight: 600;
+        }
+
+        .event-form .row > div {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="event-form">
+                        <h3>Create a New Event</h3>
+                        <form th:action="@{/events}" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="eventTitle">Event Title</label>
+                                    <input id="eventTitle" type="text" class="form-control" th:field="*{event.title}" placeholder="Enter event title" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="eventDate">Event Date</label>
+                                    <input id="eventDate" type="datetime-local" class="form-control" th:field="*{event.date}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="eventLocation">Event Location</label>
+                                    <input id="eventLocation" type="text" class="form-control" th:field="*{event.location}" placeholder="Enter event location" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="eventCapacity">Event Capacity</label>
+                                    <input id="eventCapacity" type="number" class="form-control" th:field="*{event.capacity}" placeholder="Enter number of participants" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="eventDescription">Event Description</label>
+                                    <textarea id="eventDescription" class="form-control" th:field="*{event.description}" rows="4" placeholder="Enter event description" required></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="eventPrice">Event Price (USD)</label>
+                                    <input id="eventPrice" type="number" step="0.01" class="form-control" th:field="*{event.price}" placeholder="Enter event price" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="eventType">Event Type</label>
+                                    <select id="eventType" class="form-control" th:field="*{event.type}" required>
+                                        <option value="" disabled selected>Select type</option>
+                                        <option th:each="type : ${eventTypes}" th:value="${type}" th:text="${type}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Create Event</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!-- Essential Scripts -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
